@@ -1,5 +1,9 @@
 @use 'components/header';
 @use 'components/pictures-section';
+@use 'components/catalog-section';
+@use 'components/_promo-section.scss';
+@use 'components/about-section.scss';
+@use 'components/footer.scss';
 // @import 'variables';
 // @import 'mixins';
 // @import 'base';
@@ -8,4 +12,11 @@
 body {
   font-family: 'Raleway', sans-serif;
   font-weight: 500; // Medium
+}
+
+a {
+  text-decoration: none !important;  
+  &:hover {
+    text-decoration: none;
+  }
 }
