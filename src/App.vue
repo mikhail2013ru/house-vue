@@ -20,15 +20,15 @@
 
 <template>
   <Header :isReproductionsActive="activeTab === 'reproductions'" @tab-change="updateActiveTab" />
-  <main>
-    <PicturesSection v-if="activeTab !== 'reproductions'" :name="name" :surn="surn" />
-    <CatalogSection v-if="activeTab === 'reproductions' || activeTab === 'default'" />
-    <PromoSection v-if="activeTab !== 'reproductions'" />
-    <AboutSection v-if="activeTab !== 'reproductions'" />
-  </main>
+    <main>
+      <PicturesSection v-if="activeTab === 'default'" />
+      <CatalogSection v-if="activeTab === 'reproductions' || activeTab === 'default'" />
+      <PromoSection v-if="activeTab === 'new' || activeTab === 'default'" />
+      <AboutSection v-if="activeTab === 'about'" />
+    </main>
   <Footer />
 </template>
 
 <style scoped>
-
+  
 </style>

@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="header__wrap d-none d-sm-flex">
-                        <a href="/" class="header__logo d-flex align-items-center text-decoration-none">
+                        <a href="#" @click.prevent="setActiveTab('default')" class="header__logo d-flex align-items-center text-decoration-none">
                             <img :src="headerImages['favicon-house']" alt="Ink. House" loading="lazy">
                             <span class="header__logo-text">Ink. House</span>
                         </a>
@@ -15,10 +15,10 @@
                                     <a href="#" class="header__list-link" @click.prevent="setActiveTab('reproductions')">Репродукции</a>
                                 </li>
                                 <li class="header__list-item">
-                                    <a href="/new" class="header__list-link">Новинки</a>
+                                    <a href="#" class="header__list-link" @click.prevent="setActiveTab('new')">Новинки</a>
                                 </li>
                                 <li class="header__list-item">
-                                    <a href="/about" class="header__list-link">О нас</a>
+                                    <a href="#" class="header__list-link" @click.prevent="setActiveTab('about')">О нас</a>
                                 </li>
                             </ul>
                             <div class="header__basket">
