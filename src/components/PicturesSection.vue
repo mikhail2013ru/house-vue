@@ -15,7 +15,7 @@
                         <div class="pictures__describe">
                             Высокое качество отрисовки на плотной бумаге или льняном холсте. Редкие произведения, доступные цены.
                         </div>
-                        <a href="/products" class="pictures__button">Продукция</a>
+                        <a href="#" class="pictures__button" @click.prevent="setActiveTab('reproductions')">Продукция</a>
                     </article>
                 </div>
             </div>
@@ -24,7 +24,11 @@
 </template>
 
 <script setup>
-    
+    const emit = defineEmits(['tab-change'])
+
+    const setActiveTab = (tabName) => {
+        emit('tab-change', tabName)
+    }
 </script>
 
 <style scoped>

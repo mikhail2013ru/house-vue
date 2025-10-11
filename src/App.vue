@@ -21,7 +21,7 @@
 <template>
   <Header :isReproductionsActive="activeTab === 'reproductions'" @tab-change="updateActiveTab" />
     <main>
-      <PicturesSection v-if="activeTab === 'default'" />
+      <PicturesSection v-if="activeTab === 'default'" @tab-change="updateActiveTab" />
       <CatalogSection v-if="activeTab === 'reproductions' || activeTab === 'default'" />
       <PromoSection v-if="activeTab === 'new' || activeTab === 'default'" />
       <AboutSection v-if="activeTab === 'about'" />

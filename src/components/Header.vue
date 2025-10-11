@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col">
                     <div class="header__mobile-menu d-flex d-sm-none">
-                        <a href="/" class="header__logo-mobile">
+                        <a href="#" class="header__logo-mobile" @click.prevent="setActiveTabAndClose('default')">
                             <img :src="headerImages['favicon-house']" alt="favicon-house" loading="lazy">
                             <span class="header__logo-text">Ink. House</span>
                         </a>
@@ -70,13 +70,13 @@
                                 </div>
                                 <ul class="header__list-mobile list-unstyled d-flex mb-0">
                                     <li class="header__mobile-item">
-                                        <a href="/reproductions" class="header__mobile-link">Репродукции</a>
+                                        <a href="#" class="header__mobile-link" @click.prevent="setActiveTabAndClose('reproductions')">Репродукции</a>
                                     </li>
                                     <li class="header__mobile-item">
-                                        <a href="/new" class="header__mobile-link">Новинки</a>
+                                        <a href="#" class="header__mobile-link" @click.prevent="setActiveTabAndClose('new')">Новинки</a>
                                     </li>
                                     <li class="header__mobile-item">
-                                        <a href="/about" class="header__mobile-link">О нас</a>
+                                        <a href="#" class="header__mobile-link" @click.prevent="setActiveTabAndClose('about')">О нас</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -107,6 +107,11 @@ const emit = defineEmits(['tab-change'])
 
 const setActiveTab = (tabName) => {
     emit('tab-change', tabName)
+}
+
+const setActiveTabAndClose = (tabName) => {
+    setActiveTab(tabName)
+    closeMobileMenu()
 }
 
 // Состояние мобильного меню
