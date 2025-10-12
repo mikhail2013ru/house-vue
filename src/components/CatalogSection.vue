@@ -8,7 +8,22 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="catalog__tabs-container">
                         <article class="catalog__tabs-list list-unstyled" role="tablist">
-                            <li class="catalog__tab-item">
+                            <li 
+                                v-for="country in ['Франция', 'Германия', 'Англия']" 
+                                :key="country"
+                                class="catalog__tab-item"
+                                >
+                                <a 
+                                    href="#" 
+                                    class="catalog__tab-link" 
+                                    :class="{ 'active': activeCountry === country }"
+                                    @click.prevent="setActiveCountry(country)"
+                                >
+                                    {{ country }}
+                                </a>
+                            </li>
+
+                            <!-- <li class="catalog__tab-item">
                                 <a href="#" class="catalog__tab-link" role="tab">Франция</a>
                             </li>
                             <li class="catalog__tab-item">
@@ -16,16 +31,41 @@
                             </li>
                             <li class="catalog__tab-item">
                                 <a href="#" class="catalog__tab-link" role="tab">Англия</a>
-                            </li>
+                            </li> -->
                         </article>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div
+                    v-for="product in filteredProducts"
+                    :key="product.id"
+                    class="col-lg-4 col-md-6 col-sm-6 col-12"
+                >
+                <!-- :src="`@/assets/images/catalog/${product.image}.jpg`" -->
+                    <article class="catalog__cart">
+                        
+                        <figure class="catalog__cart-art">
+                        <img 
+                        :src="getImagePath(product.image)"
+                        :alt="product.name" 
+                        class="catalog__cart-image"
+                        >
+                        </figure>
+                        <!-- {{ console.log('Текущий продукт:', product) }} -->
+                        <div class="catalog__art-author">{{ product.author }}</div>
+                        <h3 class="catalog__art-name">{{ product.name }}</h3>
+                        <div class="catalog__art-description">{{ product.description }}</div>
+                        <div class="catalog__art-price">
+                        <strong>{{ product.price.toLocaleString('ru-RU') }} руб</strong>
+                        </div>
+                        <button class="catalog__button" type="button">В корзину</button>
+                    </article>
+                </div>
+                <!-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-cupids-hunt']" alt="catalog-cupids-hunt" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-cupids-hunt.jpg" alt="catalog-cupids-hunt" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Марсель Руссо</div>
                         <h3 class="catalog__art-name">Охота Амура</h3>
@@ -37,7 +77,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-the-lady-with-the-dog']" alt="catalog-the-lady-with-the-dog" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-the-lady-with-the-dog.jpg" alt="catalog-the-lady-with-the-dog" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Анри Селин</div>
                         <h3 class="catalog__art-name">Дама с собачкой</h3>
@@ -49,7 +89,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-procedure']" alt="catalog-procedure" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-procedure.jpg" alt="catalog-procedure" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Франсуа Дюпон</div>
                         <h3 class="catalog__art-name">Процедура</h3>
@@ -61,7 +101,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-rose']" alt="catalog-rose" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-rose.jpg" alt="catalog-rose" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Луи Детуш</div>
                         <h3 class="catalog__art-name">Роза</h3>
@@ -73,7 +113,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-bird-meal']" alt="catalog-bird-meal" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-bird-meal.jpg" alt="catalog-bird-meal" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Франсуа Дюпон</div>
                         <h3 class="catalog__art-name">Птичья трапеза</h3>
@@ -85,7 +125,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                     <article class="catalog__cart catalog__cart--mr-0 catalog__cart--mb-0">
                         <figure class="catalog__cart-art">
-                            <img :src="catalogImages['catalog-landscape-with-fish']" alt="catalog-landscape-with-fish" class="catalog__cart-image">
+                            <img src="@/assets/images/catalog/catalog-landscape-with-fish.jpg" alt="catalog-landscape-with-fish" class="catalog__cart-image">
                         </figure>
                         <div class="catalog__art-author">Пьер Моранж</div>
                         <h3 class="catalog__art-name">Пейзаж с рыбой</h3>
@@ -93,29 +133,27 @@
                         <div class="catalog__art-price"><strong>20 000 руб</strong></div>
                         <button class="catalog__button" type="button">В корзину</button>
                     </article>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
 </template>
 
-<script>
-    export default {
-        name: 'CatalogSection'
-    }
-</script>
-
 <script setup>
-    // Автоматически импортируем все изображения из папки
-    const images =
-        import.meta.glob('@/assets/images/catalog/*.{png,svg,jpg,jpeg}', {
-            eager: true
-        })
-    // Преобразуем в объект с именами
-    const catalogImages = Object.fromEntries(
-        Object.entries(images).map(([key, value]) => {
-            const filename = key.split('/').pop().replace(/\.\w+$/, '')
-            return [filename, value.default]
-        })
-    )
+    import { ref, computed } from 'vue'
+    import { products } from '@/data/products.js'
+
+    const getImagePath = (imageName) => {
+        return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
+    }
+
+    const activeCountry = ref('Франция')
+
+    const filteredProducts = computed(() => {
+        return products.filter(product => product.country === activeCountry.value)
+    })
+
+    const setActiveCountry = (country) => {
+        activeCountry.value = country
+    }
 </script>
