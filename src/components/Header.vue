@@ -67,7 +67,7 @@
                                     <img :src="headerImages['list']" alt="burger">
                                 </div>
                                 <div class="header__basket">
-                                    <a href="/cart" class="header__basket-link">
+                                    <a href="#" class="header__basket-link">
                                         <img 
                                             :src="headerImages['basket']" 
                                             alt="basket" 
@@ -75,6 +75,7 @@
                                             width="24" 
                                             height="24"
                                             loading="lazy"
+                                            @click="openCart"
                                         >
                                     </a>
                                 </div>
