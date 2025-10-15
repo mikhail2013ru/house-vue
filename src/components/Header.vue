@@ -22,16 +22,33 @@
                                 </li>
                             </ul>
                             <div class="header__basket">
-                                <a href="/cart" class="header__basket-link">
+                              <!-- src="@/assets/images/catalog/catalog-procedure.jpg" alt="catalog-procedure" -->
+                                <a href="#" class="header__basket-link">
                                     <img 
-                                        :src="headerImages['basket']" 
+                                        src="@/assets/images/header/basket.svg" 
                                         alt="basket" 
                                         class="svg-icon svg-icon--star"
                                         width="24" 
                                         height="24"
                                         loading="lazy"
+                                        type="button"
+                                        @click="openCart"
                                     >
+                                    <span v-if="cartTotalItems() > 0" class="header__basket-count">
+                                      ({{ cartTotalItems() }})
+                                    </span>
                                 </a>
+
+                                <!-- <button 
+                                    class="header__basket-button" 
+                                    type="button"
+                                    @click="openCart"
+                                >
+
+                                <span v-if="cartTotalItems() > 0" class="header__basket-count">
+                                    ({{ cartTotalItems() }})
+                                </span>
+                                </button> -->
                             </div>
                         </nav>
                     </div>
@@ -90,11 +107,98 @@
             ></div>
         </div>
 
+            <!-- Модальное окно корзины -->
+        <div v-if="isCartOpen" class="modal-overlay" @click="closeCart">
+            <div class="modal-cart" @click.stop>
+                <div class="modal-cart__header">
+                <h2>Корзина</h2>
+                <button class="modal-cart__close" @click="closeCart">&times;</button>
+                </div>
+
+                <div v-if="cartItems.length === 0" class="modal-cart__empty">
+                Корзина пуста
+                </div>
+
+                <div v-else>
+                <div class="modal-cart__item" v-for="item in cartItems" :key="item.id">
+                    <div>
+                      <img 
+                        :src="getImagePath(item.image)"
+                        :alt="item.name" 
+                        class="modal-cart__cart-image"
+                      >
+                      <h3>{{ item.name }}</h3>
+                      <p>{{ item.author }}</p>
+                      <strong>{{ (item.price * item.quantity).toLocaleString('ru-RU') }} руб</strong>
+                    </div>
+                    <div class="modal-cart__controls">
+                      <button @click="updateQuantity(item.id, item.quantity - 1)">-</button>
+                      <span>{{ item.quantity }}</span>
+                      <button @click="updateQuantity(item.id, item.quantity + 1)">+</button>
+                      <button @click="removeFromCart(item.id)" class="modal-cart__remove">✕</button>
+                    </div>
+                </div>
+
+                <div class="modal-cart__total">
+                    <strong>Итого: {{ total.toLocaleString('ru-RU') }} руб</strong>
+                </div>
+
+                <button class="modal-cart__checkout" @click="handleCheckout">
+                    Оформить заказ
+                </button>
+                </div>
+            </div>
+        </div>
     </header>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { products } from '@/data/products.js'
+import { 
+  cart, 
+  addToCart, 
+  removeFromCart, 
+  updateQuantity, 
+  cartTotalItems 
+} from '@/stores/cart.js'
+// import { addToCart } from '@/stores/cart.js'
+
+const getImagePath = (imageName) => {
+    return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
+}
+
+// Состояние модального окна
+const isCartOpen = ref(false)
+// console.log(isCartOpen);
+
+
+const openCart = () => {
+  isCartOpen.value = true
+}
+
+const closeCart = () => {
+  isCartOpen.value = false
+}
+
+// Данные для корзины
+const cartItems = computed(() => {
+  return cart.value.map(item => {
+    const product = products.find(p => p.id === item.id)
+    return { ...item, ...product }
+  })
+})
+
+const total = computed(() => {
+  return cartItems.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
+})
+
+// Обработка оформления заказа
+const handleCheckout = () => {
+  alert('Заказ оформлен! (В реальном проекте здесь был бы запрос на сервер)')
+  cart.value = [] // очистить корзину
+  closeCart()
+}
 
 const props = defineProps({
     isReproductionsActive: {
@@ -154,4 +258,118 @@ const headerImages = Object.fromEntries(
  .header--reproductions {
     margin-bottom: 50px;
  }
+
+ /* Стили для корзины */
+.header__basket-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+/* Модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+  z-index: 1000;
+}
+
+.modal-cart {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.modal-cart__cart-image {
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.modal-cart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-cart__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-cart__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-cart__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-cart__controls button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.modal-cart__remove {
+  color: red;
+  font-weight: bold;
+}
+
+.modal-cart__total {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.modal-cart__checkout {
+  width: 100%;
+  padding: 0.75rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.header__basket-count {
+  margin-left: 4px;
+  font-size: 0.85rem;
+  color: #e74c3c;
+}
+
+@media (max-width: 480px) {
+  .modal-cart__item-image {
+    max-width: 250px;
+    max-height: 250px;
+    width: auto;
+    height: auto;
+  }
+}
 </style>

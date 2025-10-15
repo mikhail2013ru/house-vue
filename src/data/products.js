@@ -18,7 +18,7 @@ export const products = [
     description: "Акрил, бумага (50х80)",
     price: 16500,
     image: "catalog-the-lady-with-the-dog",
-    country: "Германия"
+    country: "Франция"
   },
   {
     id: 3,
@@ -54,9 +54,8 @@ export const products = [
     description: "Цветная литография (40х60)",
     price: 20000,
     image: "catalog-landscape-with-fish",
-    country: "Англия"
-  },
-  
+    country: "Франция"
+  },  
 
   // === ГЕРМАНИЯ ===
   
@@ -66,37 +65,109 @@ export const products = [
     author: "Курт Вернер",
     description: "Цветная фотография (40х60)",
     price: 16000,
-    image: "Над городом",
+    image: "city-view",
     country: "Германия"
   },
   {
-    id: 7,
-    name: "Замок на холме",
-    author: "Элиза Шмидт",
-    description: "Акварель (40х50)",
-    price: 9800,
-    image: "catalog-castle-on-hill",
+    id: 8,
+    name: "Птенцы",
+    author: "Макс Рихтер",
+    description: "Холст, масло (50х80)",
+    price: 14500,
+    image: "chicks",
     country: "Германия"
   },
-
-  // === АНГЛИЯ ===
-  
   {
     id: 9,
-    name: "Лондонский дождь",
-    author: "Томас Блейк",
-    description: "Масло, холст (70х100)",
-    price: 24500,
-    image: "catalog-london-rain",
-    country: "Англия"
+    name: "Среди листьев",
+    author: "Мартин Майер",
+    description: "Цветная литография (40х60)",
+    price: 20000,
+    image: "among-the-leaves",
+    country: "Германия"
   },
   {
     id: 10,
-    name: "Сад в Кембридже",
-    author: "Эмили Уотсон",
-    description: "Пастель (50х70)",
-    price: 13200,
-    image: "catalog-cambridge-garden",
+    name: "Яркая птица",
+    author: "Герман Беккер",
+    description: "Цветная литография (40х60)",
+    price: 13000,
+    image: "a-bright-bird",
+    country: "Германия"
+  },
+  {
+    id: 11,
+    name: "Дятлы",
+    author: "Вульф Бауэр",
+    description: "Бумага, акрил (50х80)",
+    price: 20000,
+    image: "Woodpeckers",
+    country: "Германия"
+  },
+  {
+    id: 12,
+    name: "Большие воды",
+    author: "Вальтер Хартманн",
+    description: "Бумага, акрил (50х80)",
+    price: 23000,
+    image: "big-waters",
+    country: "Германия"
+  },
+  
+  // === АНГЛИЯ ===
+
+  {
+    id: 13,
+    name: "Дикий зверь",
+    author: "Пол Смит",
+    description: "Акварель, бумага (50х80)",
+    price: 19500,
+    image: "the-wild-beast",
+    country: "Англия"
+  },
+  {
+    id: 14,
+    name: "Скалистый берег",
+    author: "Джон Уайт",
+    description: "Цветная литография (40х60)",
+    price: 17500,
+    image: "rocky-coast",
+    country: "Англия"
+  },
+  {
+    id: 15,
+    name: "Река и горы",
+    author: "Джим Уотсон",
+    description: "Акварель, бумага (50х80)",
+    price: 20500,
+    image: "river-and-mountains",
+    country: "Англия"
+  },
+  {
+    id: 16,
+    name: "Белый попугай",
+    author: "Юджин Зиллион",
+    description: "Цветная литография (40х60)",
+    price: 15500,
+    image: "the-white-parrot",
+    country: "Англия"
+  },
+  {
+    id: 17,
+    name: "Ночная рыба",
+    author: "Эрик Гиллман",
+    description: "Бумага, акрил (50х80)",
+    price: 12500,
+    image: "night-fish",
+    country: "Англия"
+  },
+  {
+    id: 18,
+    name: "Рыжий кот",
+    author: "Альфред Барр",
+    description: "Цветная литография (40х60)",
+    price: 21000,
+    image: "the-red-haired-cat",
     country: "Англия"
   }
 ]

@@ -43,13 +43,12 @@
                     class="col-lg-4 col-md-6 col-sm-6 col-12"
                 >
                 <!-- :src="`@/assets/images/catalog/${product.image}.jpg`" -->
-                    <article class="catalog__cart">
-                        
+                    <article class="catalog__cart">                        
                         <figure class="catalog__cart-art">
                         <img 
-                        :src="getImagePath(product.image)"
-                        :alt="product.name" 
-                        class="catalog__cart-image"
+                            :src="getImagePath(product.image)"
+                            :alt="product.name" 
+                            class="catalog__cart-image"
                         >
                         </figure>
                         <!-- {{ console.log('Текущий продукт:', product) }} -->
@@ -59,7 +58,7 @@
                         <div class="catalog__art-price">
                         <strong>{{ product.price.toLocaleString('ru-RU') }} руб</strong>
                         </div>
-                        <button class="catalog__button" type="button">В корзину</button>
+                        <button class="catalog__button" type="button" @click="addToCart(product.id)">В корзину</button>
                     </article>
                 </div>
                 <!-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -142,6 +141,7 @@
 <script setup>
     import { ref, computed } from 'vue'
     import { products } from '@/data/products.js'
+    import { addToCart } from '@/stores/cart.js'
 
     const getImagePath = (imageName) => {
         return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
@@ -150,7 +150,9 @@
     const activeCountry = ref('Франция')
 
     const filteredProducts = computed(() => {
-        return products.filter(product => product.country === activeCountry.value)
+        return products
+            .filter(product => product.country === activeCountry.value)
+            // .sort((a, b) => a.id - b.id) // сортировка по id
     })
 
     const setActiveCountry = (country) => {
