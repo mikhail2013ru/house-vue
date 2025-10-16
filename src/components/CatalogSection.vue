@@ -16,7 +16,7 @@
                                 <a 
                                     href="#" 
                                     class="catalog__tab-link" 
-                                    :class="{ 'active': activeCountry === country }"
+                                    :class="{ 'active': props.activeCountry === country }"
                                     @click.prevent="setActiveCountry(country)"
                                 >
                                     {{ country }}
@@ -143,19 +143,35 @@
     import { products } from '@/data/products.js'
     import { addToCart } from '@/stores/cart.js'
 
+    // Получаем активную страну от родителя
+    const props = defineProps({
+        activeCountry: {
+            type: String,
+            default: 'Франция'
+        }
+    })
+
+    // Эмитим изменения (на случай, если страна меняется внутри каталога)
+    const emit = defineEmits(['update-country'])
+
+    const setActiveCountry = (country) => {
+        emit('update-country', country)
+    }
+
     const getImagePath = (imageName) => {
         return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
     }
 
-    const activeCountry = ref('Франция')
+    // const activeCountry = ref('Франция')
 
     const filteredProducts = computed(() => {
+        console.log('Текущая страна:', props.activeCountry) // ← добавь это для отладки
         return products
-            .filter(product => product.country === activeCountry.value)
+            .filter(product => product.country === props.activeCountry)
             // .sort((a, b) => a.id - b.id) // сортировка по id
     })
 
-    const setActiveCountry = (country) => {
-        activeCountry.value = country
-    }
+    // const setActiveCountry = (country) => {
+    //     activeCountry.value = country
+    // }
 </script>

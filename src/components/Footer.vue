@@ -21,13 +21,13 @@
                                 <h3 class="footer__list-title">Репродукции</h3>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">Франция</a>
+                                <a href="#" class="footer__link" @click.prevent="emitCountry('Франция')">Франция</a>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">Германия</a>
+                                <a href="#" class="footer__link" @click.prevent="emitCountry('Германия')">Германия</a>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">Англия</a>
+                                <a href="#" class="footer__link" @click.prevent="emitCountry('Англия')">Англия</a>
                             </li>
                         </ul>
 
@@ -36,10 +36,10 @@
                                 <h3 class="footer__list-title">Новинки</h3>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">2021</a>
+                                <a href="#" class="footer__link" @click.prevent="emitComingSoon">2021</a>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">2020</a>
+                                <a href="#" class="footer__link" @click.prevent="emitComingSoon">2020</a>
                             </li>
                         </ul>
 
@@ -48,10 +48,10 @@
                                 <h3 class="footer__list-title">О нас</h3>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">Художники</a>
+                                <a href="#" class="footer__link" @click.prevent="emitComingSoon">Художники</a>
                             </li>
                             <li class="footer__list-item">
-                                <a href="#" class="footer__link">Менеджеры</a>
+                                <a href="#" class="footer__link" @click.prevent="emitComingSoon">Менеджеры</a>
                             </li>
                         </ul>
                     </div>
@@ -102,13 +102,13 @@
                                             <h3 class="footer__list-title">Репродукции</h3>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">Франция</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitCountry('Франция')">Франция</a>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">Германия</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitCountry('Германия')">Германия</a>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">Англия</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitCountry('Англия')">Англия</a>
                                         </li>
                                     </ul>
             
@@ -117,10 +117,10 @@
                                             <h3 class="footer__list-title">Новинки</h3>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">2021</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">2021</a>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">2020</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">2020</a>
                                         </li>
                                     </ul>
             
@@ -129,10 +129,10 @@
                                             <h3 class="footer__list-title">О нас</h3>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">Художники</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">Художники</a>
                                         </li>
                                         <li class="footer__list-item">
-                                            <a href="#" class="footer__link">Менеджеры</a>
+                                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">Менеджеры</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -188,13 +188,13 @@
                             <h3 class="footer__list-title">Репродукции</h3>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">Франция</a>
+                            <a href="#" class="footer__link" @click.prevent="emitCountry('Франция')">Франция</a>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">Германия</a>
+                            <a href="#" class="footer__link" @click.prevent="emitCountry('Германия')">Германия</a>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">Англия</a>
+                            <a href="#" class="footer__link" @click.prevent="emitCountry('Англия')">Англия</a>
                         </li>
                     </ul>
                 </div>
@@ -204,10 +204,10 @@
                             <h3 class="footer__list-title">Новинки</h3>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">2021</a>
+                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">2021</a>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">2020</a>
+                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">2020</a>
                         </li>
                     </ul>
                 </div>
@@ -217,10 +217,10 @@
                             <h3 class="footer__list-title">О нас</h3>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">Художники</a>
+                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">Художники</a>
                         </li>
                         <li class="footer__list-item">
-                            <a href="#" class="footer__link">Менеджеры</a>
+                            <a href="#" class="footer__link" @click.prevent="emitComingSoon">Менеджеры</a>
                         </li>
                     </ul>
                 </div>
@@ -250,8 +250,15 @@
     </footer>
 </template>
 
-<script>
-export default {
-  name: 'Footer'
-}
+<script setup>
+    const emit = defineEmits(['country-change', 'coming-soon'])
+
+    const emitCountry = (country) => {
+        console.log('Footer эмитит:', country)
+        emit('country-change', country)
+    }
+
+    const emitComingSoon = () => {
+        emit('coming-soon')
+    }
 </script>

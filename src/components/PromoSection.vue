@@ -16,7 +16,7 @@
                                 <p class="promo__description">Сложно сказать, почему акционеры крупнейших компаний призывают нас к новым свершениям, которые, в свою очередь, должны быть заблокированы в рамках своих собственных рациональных ограничений.</p>
                                 <p class="promo__description">Принимая во внимание показатели успешности, граница обучения кадров предопределяет высокую востребованность направлений прогрессивного развития.</p>
                             </div>
-                            <a href="#" class="promo__button">Ознакомиться</a>             
+                            <a href="#" class="promo__button" @click.prevent="setActiveTab('reproductions')">Ознакомиться</a>             
                         </div>
                     </div>
                 </div>
@@ -25,8 +25,16 @@
     </section>
 </template>
 
-<script>
+<!-- <script>
 export default {
   name: 'PromoSection'
+}
+</script> -->
+
+<script setup>
+const emit = defineEmits(['tab-change'])
+
+const setActiveTab = (tabName) => {
+    emit('tab-change', { tabName, shouldScroll: true })
 }
 </script>
