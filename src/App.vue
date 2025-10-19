@@ -58,7 +58,7 @@ const setActiveCountryFromFooter = (country) => {
           />
         <PromoSection v-if="activeTab === 'new' || activeTab === 'default'" @tab-change="updateActiveTab" />
         <!-- <PromoSection v-if="activeTab === 'reproductions' || activeTab === 'default'" /> -->
-        <AboutSection v-if="activeTab === 'about'" />
+        <AboutSection v-if="activeTab === 'about' || activeTab === 'default'" />
       </template>
     </main>
     <Footer 

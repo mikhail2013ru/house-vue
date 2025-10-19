@@ -1,5 +1,6 @@
 .about {
-    min-height: 747px;
+    max-height: 580px;
+    height: calc(100vh - 100px - 189px);
     padding: 70px 0 70px;
     color: #2C2D35;
     &__block {
@@ -26,6 +27,12 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .about {
+        height: 100%;        
+    }
+}
+
 @media (max-width: 960px) {
     .about {
         padding: 70px 27px 70px;
@@ -41,6 +48,8 @@
 
 @media (max-width: 768px) {
     .about {
+        max-height: 100%;
+        // content: url('@/assets/images/about/about-picture-510.png');
         &__image-wrap {
             margin: 0;
         }
@@ -73,6 +82,12 @@
             font-size: 16px;
             margin-bottom: 20px;
         }
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        height: 100%;
     }
 }
 

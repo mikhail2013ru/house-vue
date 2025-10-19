@@ -4,7 +4,12 @@
             <div class="row align-items-center">
                 <div class="col-xl-5 col-lg-6 col-md-12">
                     <figure class="about__image-wrap">
-                        <img src="@/assets/images/about/about-picture.png" alt="about-picture" class="about__image">
+                        <picture>
+                            <source media="(max-width: 480px)" srcset="@/assets/images/about/about-picture-290.png">
+                            <source media="(max-width: 576px)" srcset="@/assets/images/about/about-picture-375.png">
+                            <source media="(max-width: 768px)" srcset="@/assets/images/about/about-picture-510.png">
+                            <img src="@/assets/images/about/about-picture.png" alt="about-picture" class="about__image">
+                        </picture>
                     </figure>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12">
