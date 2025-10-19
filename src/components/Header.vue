@@ -41,7 +41,7 @@
                                     type="button"
                                     @click="openCart"
                                     >
-                                    <span v-if="cartTotalItems() > 0" class="header__basket-badge">
+                                    <span v-if="cartTotalItems() > 0" class="header__basket-badge" @click="openCart">
                                       {{ cartTotalItems() }}
                                     </span>
                                   </div>
