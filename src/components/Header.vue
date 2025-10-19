@@ -23,20 +23,28 @@
                             </ul>
                             <div class="header__basket">
                               <!-- src="@/assets/images/catalog/catalog-procedure.jpg" alt="catalog-procedure" -->
+                              <!-- class="svg-icon svg-icon--star" -->
                                 <a href="#" class="header__basket-link">
+                                  <div class="header__basket-icon-wrapper"
+                                    tabindex="0"
+                                    @mouseenter="isBasketHovered = true"
+                                    @mouseleave="isBasketHovered = false"
+                                    @focus="isBasketFocused = true"
+                                  >
                                     <img 
-                                        src="@/assets/images/header/basket.svg" 
-                                        alt="basket" 
-                                        class="svg-icon svg-icon--star"
-                                        width="24" 
-                                        height="24"
-                                        loading="lazy"
-                                        type="button"
-                                        @click="openCart"
+                                    :src="getBasketIconSrc()"
+                                    :class="['svg-icon', 'svg-icon--star', `basket-${cartStatus.value || 'empty'}`]"
+                                    alt="basket" 
+                                    width="24" 
+                                    height="24"
+                                    loading="lazy"
+                                    type="button"
+                                    @click="openCart"
                                     >
-                                    <span v-if="cartTotalItems() > 0" class="header__basket-count">
-                                      ({{ cartTotalItems() }})
+                                    <span v-if="cartTotalItems() > 0" class="header__basket-badge">
+                                      {{ cartTotalItems() }}
                                     </span>
+                                  </div>
                                 </a>
 
                                 <!-- <button 
@@ -165,8 +173,9 @@ import {
 } from '@/stores/cart.js'
 // import { addToCart } from '@/stores/cart.js'
 
+
 const getImagePath = (imageName) => {
-    return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
+  return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
 }
 
 // Состояние модального окна
@@ -175,11 +184,47 @@ const isCartOpen = ref(false)
 
 
 const openCart = () => {
+  isBasketFocused.value = false
   isCartOpen.value = true
 }
 
 const closeCart = () => {
   isCartOpen.value = false
+}
+
+const isBasketHovered = ref(false)
+const isBasketFocused = ref(false)
+
+const cartStatus = computed(() => {
+  if (isBasketFocused.value) return 'focus'
+  if (isBasketHovered.value) return 'hover'
+  const count = cartTotalItems()
+  if (count === 0) return 'empty'
+  if (isCartOpen.value) return 'active'
+  return 'filled'
+})
+
+const getBasketIconSrc = () => {
+  try {
+    // Убираем @ из пути
+    const basePath = '/src/assets/images/header/'
+    let fileName
+    
+    switch (cartStatus.value) {
+      case 'empty': fileName = 'basket.svg'; break
+      case 'filled': fileName = 'basket-active.svg'; break
+      case 'focus': fileName = 'basket-focus.svg'; break
+      case 'hover': fileName = 'basket-hover.svg'; break
+      default: fileName = 'basket.svg'
+    }
+    
+    const fullPath = new URL(basePath + fileName, import.meta.url).href
+    console.log('🛒 Basket path:', fullPath)
+    return fullPath
+  } catch (error) {
+    console.error('❌ Error:', error)
+    return ''
+  }
 }
 
 // Данные для корзины
@@ -267,6 +312,30 @@ const headerImages = Object.fromEntries(
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem;
+}
+
+.header__basket-badge {
+  position: absolute;
+  top: 5px;
+  /* right: -6px; */
+  width: 13px;
+  height: 13px;
+  background: #4CAF50; /* зелёный */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1;
+  box-shadow: 0 0 0 2px white; /* белая рамка вокруг круга */
+  z-index: 10;
+}
+
+.header__basket-icon-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
 /* Модальное окно */
