@@ -28,9 +28,21 @@
         border-radius: 16px;
         padding: 10px 20px;
         background-color: #D4E8D9;
+        border: 2px solid #D4E8D9;
         &:hover {
             color:#F4F6F5;
             background-color:#376B44;
+            border: 2px solid #598D66;
+        }
+        &:focus {
+            background-color: #D4E8D9;
+            color: #598D66;
+            border: 2px solid #598D66;
+        }
+        &:active {
+            border: 2px solid #598D66;
+            background-color: #376B44;
+            color: #FFFFFF;
         }
     }
 

@@ -36,6 +36,18 @@
         font-weight: 500;
         border: 1px solid #598D66;
         padding: 18.5px 51.5px;
+        &:hover {
+            background-color: #598D66;
+            color: #F4F6F5;
+        }
+        &:focus {
+            background-color: #D4E8D9;
+            color: #598D66;
+        }
+        &:active {
+            background-color: #376B44;
+            color: #FFFFFF;
+        }
     }
 }
 

@@ -34,6 +34,16 @@
       font-weight: 500;
       font-size: 20px;
       line-height: 100%;
+      &:hover {
+        color: #598D66;
+      }
+      &:focus {
+          background-color: #D4E8D9;
+          color: #2C2D35;
+      }
+      &:active {
+          color: #376B44;
+      }
     }
   
     &__list-mobile {
