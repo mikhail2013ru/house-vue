@@ -116,6 +116,21 @@
       }
     }
   }
+
+  @media (max-width: 480px) {
+    .header {
+      .modal-cart {
+        &__item {
+          flex-direction: column;
+        }
+
+        &__controls {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+
   
   @media (max-width: 540px) {
     .header {

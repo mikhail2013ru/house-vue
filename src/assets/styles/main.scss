@@ -1,9 +1,11 @@
-@use 'components/header';
-@use 'components/pictures-section';
-@use 'components/catalog-section';
-@use 'components/_promo-section.scss';
-@use 'components/about-section.scss';
-@use 'components/footer.scss';
+@use "sass:meta";
+
+@include meta.load-css('components/header');
+@include meta.load-css('components/pictures-section');
+@include meta.load-css('components/catalog-section');
+@include meta.load-css('components/promo-section');
+@include meta.load-css('components/about-section');
+@include meta.load-css('components/footer');
 // @import 'variables';
 // @import 'mixins';
 // @import 'base';
