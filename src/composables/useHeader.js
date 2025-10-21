@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { products } from '@/data/products.js'
 import {
     cart,
@@ -15,19 +15,47 @@ export function useHeader(emit) {
     const isBasketHovered = ref(false)
     const isBasketFocused = ref(false)
     const isMobileMenuOpen = ref(false)
-
     // --- Состояния для других вкладок ---
     const activeTab = ref('default')
     const activeCountry = ref('Франция')
+
+    const headerClassModifier = computed(() => {
+        console.log(activeTab.value);
+        
+        if (activeTab.value === 'new' || activeTab.value === 'about' || isCartOpen.value) {
+          return 'header--offset'
+        }
+        // Для 'reproductions' и 'default' класс не добавляется, padding-right будет 0
+        return ''
+    })
+
+    watch([headerClassModifier, isCartOpen, activeTab], () => {
+        nextTick(() => {
+            const headerElement = document.querySelector('.header');
+            if (headerElement) {
+                if (headerClassModifier.value) {
+                    headerElement.classList.add('header--offset');
+                } else {
+                    headerElement.classList.remove('header--offset');
+                }
+            }
+        });
+    });
 
     // --- Логика корзины ---
     const openCart = () => {
         isBasketFocused.value = false
         isCartOpen.value = true
+        document.body.style.overflow = 'hidden'
+        // const scrollbarWidth = getScrollbarWidth()
+        // document.body.style.paddingRight = `${scrollbarWidth}px`
     }
 
     const closeCart = () => {
         isCartOpen.value = false
+        document.body.style.overflow = ''
+        // document.body.style.paddingRight = '' // ✅ сброс
+        // isCompensated = false // ✅ сброс флага
     }
 
     const cartStatus = computed(() => {
@@ -83,12 +111,16 @@ export function useHeader(emit) {
 
     const openMobileMenu = () => {
         isMobileMenuOpen.value = true
-        document.body.style.overflow = 'hidden'
+        // document.body.style.overflow = 'hidden'
+        // const scrollbarWidth = getScrollbarWidth()
+        // document.body.style.paddingRight = `${scrollbarWidth}px`
     }
 
     const closeMobileMenu = () => {
         isMobileMenuOpen.value = false
-        document.body.style.overflow = ''
+        // document.body.style.overflow = ''
+        // document.body.style.paddingRight = '' // ✅ сброс
+        // isCompensated = false // ✅ сброс флага
     }
 
     const updateActiveTab = (payload) => {
@@ -97,6 +129,7 @@ export function useHeader(emit) {
         } else if (typeof payload === 'object' && payload !== null) {
             activeTab.value = payload.tabName
             if (payload.shouldScroll) {
+                // compensateScrollbarOnScroll()
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             }
         }
@@ -104,9 +137,22 @@ export function useHeader(emit) {
 
     // --- Логика вкладок ---
     const setActiveTab = (tabName) => {
+        // ✅ Сначала компенсируем скроллбар
+        // if (tabName === 'new' || tabName === 'about') {
+        //   compensateScrollbarOnScroll()
+        // }
+      
+        // ✅ Потом меняем вкладку (рендерим контент)
         activeTab.value = tabName
+      
+        // ✅ Потом скроллим
+        if (['new', 'about', 'reproductions'].includes(tabName)) {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      
+        // ✅ Эмитим событие
         if (emit) {
-            emit('tab-change', tabName)
+          emit('tab-change', tabName)
         }
     }
 
@@ -120,12 +166,41 @@ export function useHeader(emit) {
         activeCountry.value = country
         activeTab.value = 'reproductions'
         window.scrollTo({ top: 0, behavior: 'smooth' })
+        // compensateScrollbarOnScroll()
     }
 
     // --- Вспомогательные функции ---
     const getImagePath = (imageName) => {
         return new URL(`../assets/images/catalog/${imageName}.jpg`, import.meta.url).href
     }
+
+    // const getScrollbarWidth = () => {
+    //     return window.innerWidth - document.documentElement.clientWidth
+    // }
+
+    // let isCompensated = false // ✅ флаг, чтобы не компенсировать дважды
+
+    // const compensateScrollbarOnScroll = () => {
+    //     if (isCompensated) return // ✅ уже компенсировано
+
+    //     const scrollbarWidth = getScrollbarWidth()
+    //     document.body.style.paddingRight = `${scrollbarWidth}px`
+    //     isCompensated = true
+
+    //     // ✅ Убираем компенсацию только при следующем рендере или через долгое время
+    //     requestAnimationFrame(() => {
+    //         // Можно оставить padding-right навсегда, или убрать через таймаут
+    //         // Для теста — оставим навсегда
+    //         // setTimeout(() => {
+    //         //   document.body.style.paddingRight = ''
+    //         //   isCompensated = false
+    //         // }, 2000) // 2 секунды — для теста
+    //     })
+    // }
+
+    // const isScrollbarVisible = () => {
+    //     return window.innerWidth > document.documentElement.clientWidth
+    // }
 
     // --- Изображения ---
     const images = import.meta.glob('@/assets/images/header/*.{png,svg,jpg,jpeg}', { eager: true })
@@ -164,9 +239,11 @@ export function useHeader(emit) {
         total,
         cartTotalItems,
         getBasketIconSrc,
+        headerClassModifier,
 
         // Вспомогательные
         getImagePath,
         headerImages,
+        // getScrollbarWidth,
     }
 }

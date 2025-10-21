@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue'
+    import { ref, computed, watch, nextTick } from 'vue'
     import { products } from '@/data/products.js'
     import { addToCart } from '@/stores/cart.js'
 
@@ -148,8 +148,27 @@
         activeCountry: {
             type: String,
             default: 'Франция'
-        }
+        },
+        isCartOpen: { type: Boolean, default: false },
+        activeTab: { type: String, required: true }
     })
+
+    // watch(() => [props.isCartOpen, props.activeTab], ([newIsOpen, newTab]) => {
+    //     nextTick(() => { // ✅ Ждём обновления DOM
+    //         const catalogElement = document.querySelector('.catalog')
+    //         console.log('🟢 Watcher triggered:')
+    //         console.log('  isCartOpen:', newIsOpen)
+    //         console.log('  activeTab:', newTab)
+    //         if (catalogElement) { // ✅ Проверяем, что элемент существует
+    //         if (newTab === 'reproductions') {
+    //             console.log('paddingRight = 16px')
+    //             catalogElement.style.paddingLeft = '16px'
+    //         } else {
+    //             catalogElement.style.paddingLeft = ''
+    //         }
+    //         }
+    //     })
+    // })
 
     // Эмитим изменения (на случай, если страна меняется внутри каталога)
     const emit = defineEmits(['update-country'])

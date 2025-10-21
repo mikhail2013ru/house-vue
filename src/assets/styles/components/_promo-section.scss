@@ -72,6 +72,15 @@
         font-size: 20px;
         font-weight: 500;
         display: inline-flex;
+        &:hover {
+            background-color: #FAEB97;
+        }
+        &:focus {
+            background-color: #FAEB97;
+        }
+        &:active {
+            background-color: #D9B949;
+        }
     }
 }
 

@@ -1,5 +1,11 @@
 <template>
-  <header class="header" :class="{ 'header--reproductions': isReproductionsActive }">
+  <header 
+    class="header" 
+    :class="[
+      { 'header--reproductions': isReproductionsActive }, 
+      headerClassModifier
+    ]"
+  >
     <div class="container" style="max-width: 1110px;">
       <div class="row align-items-center">
         <div class="col">
@@ -132,6 +138,7 @@ import { useHeader } from '@/composables/useHeader.js'
 const emit = defineEmits(['tab-change'])
 // Получаем всю логику из composable
 const {
+  headerClassModifier,
   isCartOpen,
   isBasketHovered,
   isBasketFocused,
@@ -320,6 +327,9 @@ const props = defineProps({
 </script>
 
 <style scoped>
+  .header--offset {
+    padding-right: 16px;
+  }
   .header {
     margin: 0 auto;
   }

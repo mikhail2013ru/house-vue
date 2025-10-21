@@ -10,6 +10,7 @@ import PromoSection from '@/components/PromoSection.vue'
 import AboutSection from '@/components/AboutSection.vue'
 import Footer from '@/components/Footer.vue'
 import ComingSoon from './components/ComingSoon.vue'
+import { useHeader } from '@/composables/useHeader.js'
 
 const activeTab = ref('default')
 const activeCountry = ref('Франция')
@@ -41,6 +42,11 @@ const setActiveCountryFromFooter = (country) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+const {
+  isCartOpen: headerIsCartOpen, // ← переименовываем для ясности
+  // ... другие свойства ...
+} = useHeader()
+
 </script>
 
 <template>
@@ -55,6 +61,8 @@ const setActiveCountryFromFooter = (country) => {
           || activeTab === 'default'"
           :active-country="activeCountry"
           @update-country="activeCountry = $event" 
+          :is-cart-open="headerIsCartOpen"
+          :active-tab="activeTab"
           />
         <PromoSection v-if="activeTab === 'new' || activeTab === 'default'" @tab-change="updateActiveTab" />
         <!-- <PromoSection v-if="activeTab === 'reproductions' || activeTab === 'default'" /> -->
