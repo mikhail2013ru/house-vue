@@ -328,7 +328,7 @@ const props = defineProps({
 
 <style scoped>
   .header--offset {
-    padding-right: 16px;
+    /* padding-right: 16px; */
   }
   .header {
     margin: 0 auto;

@@ -20,7 +20,7 @@ export function useHeader(emit) {
     const activeCountry = ref('Франция')
 
     const headerClassModifier = computed(() => {
-        console.log(activeTab.value);
+        console.log(activeTab.value);        
         
         if (activeTab.value === 'new' || activeTab.value === 'about' || isCartOpen.value) {
           return 'header--offset'
@@ -42,11 +42,68 @@ export function useHeader(emit) {
         });
     });
 
-    // --- Логика корзины ---
+    // const areCartPaddingSectionsPresent = () => {
+    //     // Проверяем наличие всех трех обязательных элементов
+    //     // Убедись, что эти классы/селекторы соответствуют корневым элементам твоих секций
+    //     const catalogElement = document.querySelector('.catalog'); // или .catalog-section?
+        
+    //     return Boolean(catalogElement && picturesElement && promoElement);
+    // };
+    
+    // --- Логика корзины ---    
     const openCart = () => {
         isBasketFocused.value = false
         isCartOpen.value = true
         document.body.style.overflow = 'hidden'
+        // document.body.style.paddingRight = '16px'
+        
+        const catalogSection = document.querySelector('.catalog');
+        const picturesSection = document.querySelector('.pictures'); // или .pictures-section?
+        const promoSection = document.querySelector('.promo'); // или .promo-section?
+        // console.log(catalogSection);
+
+        if (catalogSection && picturesSection && promoSection) {
+            // Если секция найдена, добавляем padding-right
+            document.body.style.paddingRight = '16px';
+            console.log('🟢 Padding added to body because .catalog exists'); // Для отладки
+        } else {
+            // Если секции нет, убедимся, что padding-right не установлен
+            // (на случай, если секция появилась/исчезла динамически)
+            document.body.style.paddingRight = '';
+            console.log('🟡 .catalog section not found, padding NOT added'); // Для отладки
+        }
+        
+        if (catalogSection) {
+            // Если секция найдена, добавляем padding-right
+            document.body.style.paddingRight = '16px';
+            console.log('🟢 Padding added to body because .catalog exists'); // Для отладки
+        } else {
+            // Если секции нет, убедимся, что padding-right не установлен
+            // (на случай, если секция появилась/исчезла динамически)
+            document.body.style.paddingRight = '';
+            console.log('🟡 .catalog section not found, padding NOT added'); // Для отладки
+        }
+
+        // ✅ Проверяем наличие секций перед добавлением padding-right
+        // if (areCartPaddingSectionsPresent()) {
+        //     document.body.style.paddingRight = '16px';
+        //     // console.log('🟢 Padding added to body');
+            
+        //     // document.body.style.paddingRight = '16px';
+        // } else {
+        //     // Если секции отсутствуют, убедимся, что padding-right не установлен
+        //     document.body.style.paddingRight = ''; // или '0px'
+        //     // console.log('🟡 Sections not found, padding NOT added to body');
+        // }
+
+        nextTick(() => {
+            const headerElement = document.querySelector('.header');
+            if (headerElement) {
+                // headerElement.style.paddingRight = '0px';
+                // Опционально: добавим класс-маркер, если нужно для стилей
+                // headerElement.classList.add('header--cart-open');
+            }
+        });
         // const scrollbarWidth = getScrollbarWidth()
         // document.body.style.paddingRight = `${scrollbarWidth}px`
     }
@@ -54,7 +111,22 @@ export function useHeader(emit) {
     const closeCart = () => {
         isCartOpen.value = false
         document.body.style.overflow = ''
-        // document.body.style.paddingRight = '' // ✅ сброс
+        document.body.style.paddingRight = '' // ✅ сброс
+
+        // if (catalogSection) {
+        //     // Если секция найдена, добавляем padding-right
+        //     document.body.style.paddingRight = '';
+        //     // console.log('🟢 Padding added to body because .catalog exists'); // Для отладки
+        // }
+
+        nextTick(() => {
+            const headerElement = document.querySelector('.header');
+            if (headerElement) {
+                // headerElement.style.paddingRight = ''; // Или '' чтобы удалить инлайновый стиль
+                // Опционально: убираем класс-маркер
+                // headerElement.classList.remove('header--cart-open');
+            }
+        });
         // isCompensated = false // ✅ сброс флага
     }
 
