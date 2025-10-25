@@ -19,80 +19,14 @@ export function useHeader(emit) {
     const activeTab = ref('default')
     const activeCountry = ref('Франция')
 
-    // const headerClassModifier = computed(() => {
-    //     console.log(activeTab.value);        
-        
-    //     if (activeTab.value === 'new' || activeTab.value === 'about' || isCartOpen.value) {
-    //       return 'header--offset'
-    //     }
-    //     // Для 'reproductions' и 'default' класс не добавляется, padding-right будет 0
-    //     return ''
-    // })
-
-    // watch([headerClassModifier, isCartOpen, activeTab], () => {
-    //     nextTick(() => {
-    //         const headerElement = document.querySelector('.header');
-    //         if (headerElement) {
-    //             if (headerClassModifier.value) {
-    //                 headerElement.classList.add('header--offset');
-    //             } else {
-    //                 headerElement.classList.remove('header--offset');
-    //             }
-    //         }
-    //     });
-    // });
-
     // --- Логика корзины ---    
     const openCart = () => {
         isBasketFocused.value = false
         isCartOpen.value = true
-        document.body.style.overflow = 'hidden'
-
-        console.log(activeTab.value);
-        
-        
-        if (activeTab.value === 'reproductions' || activeTab.value === 'default') {
-            document.body.style.paddingRight = '16px'
-        }
-
-        // const catalogSection = document.querySelector('.catalog');
-
-        // if (activeTab.value === 'new' && catalogSection) {
-        //     document.body.style.paddingRight = '0'
-        //     console.log(`activeTab.value === 'new'`);
-            
-        // }
     }
 
     const closeCart = () => {
-        isCartOpen.value = false
-        document.body.style.overflow = ''
-        const catalogSection = document.querySelector('.catalog');
-        
-        if (activeTab.value === 'reproductions' || activeTab.value === 'default') {
-            document.body.style.paddingRight = '0'
-        }
-
-        // if (activeTab.value === 'new' && catalogSection) {
-        //     document.body.style.paddingRight = '16px'
-        //     console.log(`closed modal`);            
-        // }
-
-        // if (activeTab.value === 'new' && document.body.style.paddingRight === '16px') {
-        //     document.body.style.paddingRight = '0px'
-        //     console.log(`activeTab.value === 'new' and document.body.style.paddingRight === '0px'`);
-            
-        // }
-
-        // if (activeTab.value === 'new' && document.body.style.paddingRight === '32px') {
-        //     document.body.style.paddingRight = '16px'
-        //     // console.log(`activeTab.value === 'new' and document.body.style.paddingRight === '16px'`);
-            
-        // }
-
-        // if (activeTab.value === 'new') {
-        //     document.body.style.paddingRight = '0px'
-        // }
+        isCartOpen.value = false        
     }
 
     const cartStatus = computed(() => {
@@ -169,6 +103,7 @@ export function useHeader(emit) {
     const setActiveTab = (tabName) => {
         // ✅ меняем вкладку (рендерим контент)
         activeTab.value = tabName    
+        document.body.style.overflow = ''
         
         // ✅ Управление padding-right у body в зависимости от вкладки
         if (tabName === 'new' || tabName === 'about') {

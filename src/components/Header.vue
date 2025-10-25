@@ -5,7 +5,6 @@
       { 'header--reproductions': isReproductionsActive }, 
     ]"
   >
-  <!-- headerClassModifier -->
     <div class="container" style="max-width: 1110px;">
       <div class="row align-items-center">
         <div class="col">
@@ -27,8 +26,6 @@
                 </li>
               </ul>
               <div class="header__basket">
-                <!-- src="@/assets/images/catalog/catalog-procedure.jpg" alt="catalog-procedure" -->
-                <!-- class="svg-icon svg-icon--star" -->
                 <a href="#" class="header__basket-link">
                   <div class="header__basket-icon-wrapper" tabindex="0" @mouseenter="isBasketHovered = true" @mouseleave="isBasketHovered = false" @focus="isBasketFocused = true">
                     <img :src="getBasketIconSrc()" :class="['svg-icon', 'svg-icon--star', `basket-${cartStatus.value || 'empty'}`]" alt="basket" width="24" height="24" loading="lazy" type="button" @click="openCart">
@@ -37,15 +34,6 @@
                       </span>
                   </div>
                 </a>
-                <!-- <button 
-                                      class="header__basket-button" 
-                                      type="button"
-                                      @click="openCart"
-                                  >
-                                  <span v-if="cartTotalItems() > 0" class="header__basket-count">
-                                      ({{ cartTotalItems() }})
-                                  </span>
-                                  </button> -->
               </div>
             </nav>
           </div>
@@ -327,9 +315,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-  .header--offset {
-    /* padding-right: 16px; */
-  }
   .header {
     margin: 0 auto;
   }
