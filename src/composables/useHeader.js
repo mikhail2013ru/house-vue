@@ -69,6 +69,13 @@ export function useHeader(emit) {
         return cartItems.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
     })
 
+    const decreaseQuantity = (id, currentQuantity) => {
+        if (currentQuantity > 1) {
+          updateQuantity(id, currentQuantity - 1)
+        }
+        // Если quantity === 1 — ничего не делаем
+    }
+
     const handleCheckout = () => {
         alert('Заказ оформлен!')
         cart.value = []
@@ -175,6 +182,9 @@ export function useHeader(emit) {
         total,
         cartTotalItems,
         getBasketIconSrc,
+        decreaseQuantity,
+        updateQuantity,
+        removeFromCart,
 
         // Вспомогательные
         getImagePath,

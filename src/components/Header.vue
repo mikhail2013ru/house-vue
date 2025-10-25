@@ -103,7 +103,7 @@
               <strong>{{ (item.price * item.quantity).toLocaleString('ru-RU') }} руб</strong>
             </div>
             <div class="modal-cart__controls">
-              <button @click="updateQuantity(item.id, item.quantity - 1)">-</button>
+              <button @click="decreaseQuantity(item.id, item.quantity)">-</button>
               <span>{{ item.quantity }}</span>
               <button @click="updateQuantity(item.id, item.quantity + 1)">+</button>
               <button @click="removeFromCart(item.id)" class="modal-cart__remove">✕</button>
@@ -123,10 +123,10 @@
 
 <script setup>
 import { useHeader } from '@/composables/useHeader.js'
+
 const emit = defineEmits(['tab-change'])
 // Получаем всю логику из composable
 const {
-  headerClassModifier,
   isCartOpen,
   isBasketHovered,
   isBasketFocused,
@@ -150,6 +150,9 @@ const {
   getBasketIconSrc,
   getImagePath,
   headerImages,
+  updateQuantity,
+  removeFromCart,
+  decreaseQuantity,
 } = useHeader(emit)
 
 // Props и Emits остаются в компоненте
