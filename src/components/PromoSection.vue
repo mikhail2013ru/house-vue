@@ -35,6 +35,8 @@ export default {
 const emit = defineEmits(['tab-change'])
 
 const setActiveTab = (tabName) => {
+    document.body.style.paddingRight = '0px';
+    console.log('🟢 Body padding-right set to 0px');
     emit('tab-change', { tabName, shouldScroll: true })
 }
 </script>

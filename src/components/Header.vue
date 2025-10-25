@@ -3,9 +3,9 @@
     class="header" 
     :class="[
       { 'header--reproductions': isReproductionsActive }, 
-      headerClassModifier
     ]"
   >
+  <!-- headerClassModifier -->
     <div class="container" style="max-width: 1110px;">
       <div class="row align-items-center">
         <div class="col">
